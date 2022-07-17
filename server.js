@@ -1,18 +1,15 @@
-const express = require('express');
+const http = require('http');
 
-const app = express();
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  console.log(req.body);
-  res.send('<h1>holaaaaaaa</h1>');
+const app = http.createServer((req, res) => {
+  console.log(req.url);
+  console.log(req.method);
+  console.log(req.headers);
+  const user = {
+    name: 'Wonmi',
+    age: 23
+  };
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(user));
 });
 
-app.post('/profile', (req, res) => {
-  console.log(req.body);
-  res.send('success');
-});
-
-app.listen(3000);
+app.listen(5500);
